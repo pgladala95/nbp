@@ -11,16 +11,15 @@ def import_code():
     return currency
 
 def import_date(currency):
-    is_date_correct = False
-    while not is_date_correct:
-        year = input('What year?')
-        month = input('What month?')
-        day = input('What day?')
-        date_of_exchange = year + '-' + month + '-' + day
-        is_date_correct = True  # bo nie miałem innego pomysłu
-        try:
-            nbpy.NBPClient(currency).date(date_of_exchange)
-        except:
-            print("No data available for date")
-            is_date_correct = False
-    return nbpy.NBPClient(currency, as_float=True).date(date_of_exchange)
+    year = input('What year?')
+    month = input('What month?')
+    day = input('What day?')
+    date_of_exchange = year + '-' + month + '-' + day
+    flag = True  # bo nie miałem innego pomysłu
+    try:
+        to_retun=[nbpy.NBPClient(currency, as_float=True).date(date_of_exchange),flag]
+    except Exception:
+        flag = False
+        to_retun = [0, flag]
+        print("No data available for date")
+    return to_retun

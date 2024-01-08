@@ -11,12 +11,20 @@ class TestFuncionsNBpy:
             assert import_code() == 'EUR'
         with mock.patch('builtins.input', return_value='euR'):
             assert import_code() == 'EUR'
-        print("test 1 works")
+        #print("test 1 works")
 
-def test_import_date(monkeypatch): #for some reason test didn't work inside class- monkeypatch function are not defined(?)
+def test_import_date_wrong(monkeypatch): #for some reason test didn't work inside class- monkeypatch function are not defined(?)
     inputs = ['2023', '11', '11']
     inputs_iter = iter(inputs)
     monkeypatch.setattr('builtins.input', lambda _: next(inputs_iter))
     result = import_date('EUR')
     assert result == [0, False]
-    print("test 2 works")
+    #print("test 2 works")
+
+def test_import_date_positive(monkeypatch): #for some reason test didn't work inside class- monkeypatch function are not defined(?)
+    inputs = ['2023', '11', '10']
+    inputs_iter = iter(inputs)
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs_iter))
+    result = import_date('EUR')
+    assert result[1] == True
+    #print("test 3 works")
